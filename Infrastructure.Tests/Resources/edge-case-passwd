@@ -1,0 +1,11 @@
+root:x:0:0:root:/root:/bin/bash
+shadowed:x:1000:1000:Shadowed password:/home/shadowed:/bin/bash
+passwordless::1001:1001:Empty password:/home/passwordless:/bin/bash
+locked:!$6$testsalt$syntheticHashForLockedPassword:1002:1002:Locked password:/home/locked:/bin/bash
+asterisk:*:1003:1003:Password authentication disabled:/home/asterisk:/bin/bash
+nisplus:*NP*:1004:1004:NIS plus password record:/home/nisplus:/bin/bash
+encrypted:$6$testsalt$syntheticHashStoredInPasswd:1005:1005:Password stored in passwd:/home/encrypted:/bin/bash
+empty_gecos:x:1006:1006::/home/empty_gecos:/bin/bash
+empty_shell:x:1007:1007:Empty shell defaults to bin sh:/home/empty_shell:
+nonexistent_shell:x:1008:1008:Nonexistent login shell:/home/nonexistent_shell:/does/not/exist
+UpperCase:x:1009:1009:Nonconforming uppercase login name:/home/UpperCase:/bin/bash
