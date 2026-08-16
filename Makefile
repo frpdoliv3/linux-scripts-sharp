@@ -7,5 +7,4 @@ coverage:
 	reportgenerator \
 		-reports:"**/TestResults/**/coverage.cobertura.xml" \
 		-targetdir:"coveragereport" \
-		-reporttypes:Html
-
+		-reporttypes:"Html;MarkdownSummaryGithub"
