@@ -1,0 +1,39 @@
+name: Commit Style Validation
+
+on:
+  push:
+    branches: 
+      - trunk
+    
+  pull_request:
+    branches:
+      - trunk
+  
+jobs:
+  commit-style-validation:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      
+      - name: Install Commitizen
+        run: pip install commitizen
+      
+      - name: Check Commits
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            cz check --rev-range "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          elif [[ "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]]; then
+            cz check --rev-range HEAD
+          else
+            cz check --rev-range "${{ github.event.before }}..${{ github.sha }}"
+          fi
