@@ -35,7 +35,7 @@ jobs:
         run: make coverage
 
       - name: Publish coverage summary
-        run: cat coveragereport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
+        run: cat docs/coveragereport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Create or update coverage comment
         if: >-
@@ -46,7 +46,7 @@ jobs:
           script: |
             const fs = require('fs');
             const marker = '<!-- coverage-report -->';
-            const body = `${marker}\n${fs.readFileSync('coveragereport/SummaryGithub.md', 'utf8')}`;
+            const body = `${marker}\n${fs.readFileSync('docs/coveragereport/SummaryGithub.md', 'utf8')}`;
             const issue_number = context.payload.pull_request.number;
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
@@ -78,7 +78,13 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
-          path: coveragereport
+          path: docs/coveragereport
+
+      - name: Upload GitHub Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/trunk'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/coveragereport
 
   deploy-pages:
     if: github.event_name == 'push' && github.ref == 'refs/heads/trunk'
@@ -89,11 +95,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: coveragereport
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
