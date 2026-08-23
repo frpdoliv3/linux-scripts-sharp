@@ -49,7 +49,10 @@ public class LinuxUserRepositoryTests(ArchLinuxTestingImageFixture imageFixture)
         );
 
         var userCreateResult = await linuxUserRepository
-            .CreateUser(testUserName, TestContext.Current.CancellationToken);
+            .CreateSystemUser(
+                testUserName,
+                cancellationToken: TestContext.Current.CancellationToken
+            );
         
         userCreateResult.Should().Be(CreateUserResult.UserCreated);
         var fileByteContent = await _container
@@ -60,6 +63,67 @@ public class LinuxUserRepositoryTests(ArchLinuxTestingImageFixture imageFixture)
 
         var passwdContentString = await streamReader.ReadToEndAsync(TestContext.Current.CancellationToken);
         passwdContentString.Should().Contain(testUserName);
+    }
+
+    [Fact]
+    public async Task MustUseDefaultHome()
+    {
+        var testUserName = "gervasio";
+        var linuxPaths = new LinuxPaths();
+        
+        var linuxUserRepository = new LinuxUserRepository(
+            new ContainerOSOperationProvider(NullLogger<ContainerOSOperationProvider>.Instance, _container), 
+            linuxPaths
+        );
+
+        var userCreateResult = await linuxUserRepository
+            .CreateSystemUser(
+                testUserName,
+                cancellationToken: TestContext.Current.CancellationToken
+            );
+        
+        userCreateResult.Should().Be(CreateUserResult.UserCreated);
+        var createdUserDetails = await _container.ExecAsync(
+            ["getent", "passwd", testUserName],
+            TestContext.Current.CancellationToken
+        );
+        
+        createdUserDetails.ExitCode.Should().Be(0);
+        createdUserDetails.Stdout.Should().NotBeEmpty();
+
+        var createdUserHome = createdUserDetails.Stdout.Split(':')[5];
+        createdUserHome.Should().Be($"/var/lib/{testUserName}");
+    }
+    
+    [Fact]
+    public async Task MustUseProvidedHome()
+    {
+        var testUserName = "gervasio";
+        var linuxPaths = new LinuxPaths();
+        
+        var linuxUserRepository = new LinuxUserRepository(
+            new ContainerOSOperationProvider(NullLogger<ContainerOSOperationProvider>.Instance, _container), 
+            linuxPaths
+        );
+
+        var userCreateResult = await linuxUserRepository
+            .CreateSystemUser(
+                testUserName,
+                "/home",
+                cancellationToken: TestContext.Current.CancellationToken
+            );
+        
+        userCreateResult.Should().Be(CreateUserResult.UserCreated);
+        var createdUserDetails = await _container.ExecAsync(
+            ["getent", "passwd", testUserName],
+            TestContext.Current.CancellationToken
+        );
+        
+        createdUserDetails.ExitCode.Should().Be(0);
+        createdUserDetails.Stdout.Should().NotBeEmpty();
+
+        var createdUserHome = createdUserDetails.Stdout.Split(':')[5];
+        createdUserHome.Should().Be($"/home/{testUserName}");
     }
     
     public async ValueTask DisposeAsync()
