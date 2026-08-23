@@ -13,6 +13,8 @@ RUN pacman-key --init \
     && echo '%wheel ALL=(ALL:ALL) ALL' > /etc/sudoers.d/wheel \
     && chmod 440 /etc/sudoers.d/wheel
 
-COPY --chmod=755 Resources/sudo-wrapper.sh /usr/local/bin/sudo
+COPY Resources/sudo-wrapper.sh /usr/local/bin/sudo
+
+RUN chmod 755 /usr/local/bin/sudo
 
 USER ${TEST_USER}
