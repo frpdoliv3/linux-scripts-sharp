@@ -83,7 +83,7 @@ public abstract class OSOperationProvider(ILogger<OSOperationProvider> logger)
     
     protected record ProcessResult(
         int ExitCode,
-        StreamReader StandardOutput,
-        StreamReader StandardError
+        TextReader StandardOutput,
+        TextReader StandardError
     );
 }
