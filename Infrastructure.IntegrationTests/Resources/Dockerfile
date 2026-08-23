@@ -18,3 +18,5 @@ COPY Resources/sudo-wrapper.sh /usr/local/bin/sudo
 RUN chmod 755 /usr/local/bin/sudo
 
 USER ${TEST_USER}
+
+CMD ["sleep", "infinity"]

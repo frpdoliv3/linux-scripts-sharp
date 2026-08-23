@@ -39,8 +39,8 @@ public class ContainerOSOperationProvider(ILogger<OSOperationProvider> logger, I
         
         return new ProcessResult(
             (int) commandResult.ExitCode ,
-            new StreamReader(commandResult.Stdout),
-            new StreamReader(commandResult.Stderr)
+            new StringReader(commandResult.Stdout),
+            new StringReader(commandResult.Stderr)
         );
     }
 }
