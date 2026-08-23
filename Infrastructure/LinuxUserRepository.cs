@@ -27,7 +27,7 @@ public class LinuxUserRepository(OSOperationProvider osOperationProvider, LinuxP
             .AddArgument(Argument.CreateLongArgument("create-home"))
             .AddArgument(Argument.CreateLongArgument("system"))
             .AddArgument(Argument.CreateLongArgument("shell", "/sbin/nologin"))
-            .AddArgument(Argument.CreatePositionalArgument("qbittorrent"));
+            .AddArgument(Argument.CreatePositionalArgument(username));
         
         var instructionResult = await osOperationProvider.RunInstructionAsync(createUserInstruction);
         return instructionResult switch
