@@ -1,7 +1,7 @@
 using AwesomeAssertions;
 using Infrastructure.Models;
 
-namespace Infrastructure.Tests;
+namespace Infrastructure.UnitTests;
 
 public class ArgumentTests
 {

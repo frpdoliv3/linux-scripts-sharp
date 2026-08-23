@@ -42,6 +42,7 @@ public class LinuxUserRepository(IOSOperationProvider osOperationProvider, Linux
         return instructionResult switch
         {
             InstructionSucceeded => CreateUserResult.UserCreated,
+            InstructionExitedWithError { ExitCode: 9 } => CreateUserResult.UserAlreadyExists,
             InstructionFailedToStart or InstructionExitedWithError => CreateUserResult.UserCreationFailed,
             _ => throw new NotImplementedException()
         };
