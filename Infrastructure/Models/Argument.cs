@@ -1,4 +1,4 @@
-namespace Infrastructure.FileSystem.Models;
+namespace Infrastructure.Models;
 
 public enum ArgumentType
 {

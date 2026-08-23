@@ -1,4 +1,4 @@
-namespace Infrastructure.FileSystem;
+namespace Infrastructure;
 
 public record LinuxPaths(
     string Passwd = "/etc/passwd"

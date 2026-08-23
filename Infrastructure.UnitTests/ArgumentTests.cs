@@ -1,5 +1,5 @@
 using AwesomeAssertions;
-using Infrastructure.FileSystem.Models;
+using Infrastructure.Models;
 
 namespace Infrastructure.Tests;
 

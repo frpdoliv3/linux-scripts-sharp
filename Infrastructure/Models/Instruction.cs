@@ -1,22 +1,18 @@
 using System.Diagnostics;
 
-namespace Infrastructure.FileSystem.Models;
+namespace Infrastructure.Models;
 
-public class Instruction
+public class Instruction(string fileName)
 {
-    public string FileName { get; }
+    public string FileName { get; } = fileName;
     private readonly List<Argument> _mutableArgumentList = new();
     public IReadOnlyCollection<Argument> ArgumentList => _mutableArgumentList;
-    public bool RedirectStandardInput { get; init; } = false;
+    public bool RedirectStandardInput { get; init; }
     public bool RedirectStandardOutput { get; init; }= true;
     public bool RedirectStandardError { get; init; }= true;
+    public bool RequiresElevation { get; init; } = false;
     public Instruction? ChildInstruction { get; set; }
 
-    public Instruction(string fileName)
-    {
-        FileName = fileName;
-    }
-    
     public Instruction AddArgument(Argument argument)
     {
         _mutableArgumentList.Add(argument);
@@ -31,21 +27,6 @@ public class Instruction
         }
 
         return this;
-    }
-
-    public Instruction WrapInSudo(IEnumerable<Argument>? sudoArguments = null)
-    {
-        var sudoInstruction = new Instruction("sudo")
-        {
-            RedirectStandardInput = RedirectStandardInput,
-            RedirectStandardOutput = RedirectStandardOutput,
-            RedirectStandardError = RedirectStandardError,
-            ChildInstruction = this
-        };
-        
-        sudoInstruction.AddArgumentRange(sudoArguments ?? []);
-        
-        return sudoInstruction;
     }
     
     public ProcessStartInfo CreateProcessStartInfo()
