@@ -1,3 +1,4 @@
+using System.Text;
 using AwesomeAssertions;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
@@ -35,8 +36,5 @@ public class LinuxUserRepositoryTests(ArchLinuxTestingImageFixture imageFixture)
     }
     
     public async ValueTask DisposeAsync()
-    {
-        await _container.DisposeAsync();
-        await imageFixture.DisposeAsync();
-    }
+        => await _container.DisposeAsync();
 }
