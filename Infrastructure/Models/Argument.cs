@@ -9,9 +9,9 @@ public enum ArgumentType
 
 public class Argument
 {
-    private string Name { get; }
-    private string? Value { get; }
-    private ArgumentType Type { get; }
+    public string Name { get; }
+    public string? Value { get; }
+    public ArgumentType Type { get; }
 
     private Argument(string name, ArgumentType type, string? value = null)
     {

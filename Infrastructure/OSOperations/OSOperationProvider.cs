@@ -22,17 +22,20 @@ public sealed record InstructionExitedWithError(
 ) : InstructionResult;
 
 public abstract class OSOperationProvider(ILogger<OSOperationProvider> logger)
+    : IOSOperationProvider
 {
-    public async Task<InstructionResult> RunInstructionAsync(Instruction instruction)
+    public abstract IAsyncEnumerable<string> ReadFileByLineAsync(string path, CancellationToken cancellationToken);
+    
+    public async Task<InstructionResult> RunInstructionAsync(Instruction instruction, CancellationToken cancellationToken)
     {
         if (instruction.RequiresElevation)
         {
-            instruction = instruction.WrapInSudo();
+            instruction = ElevateInstruction(instruction);
         }
         
         var processStartInfo = instruction.CreateProcessStartInfo();
         
-        var processResult = await SpawnProcessAsync(processStartInfo);
+        var processResult = await SpawnProcessAsync(processStartInfo, cancellationToken);
         if (processResult == null)
         {
             logger.LogError("Could not create child process for instruction {Instruction}",  instruction);
@@ -40,8 +43,8 @@ public abstract class OSOperationProvider(ILogger<OSOperationProvider> logger)
                 $"Could not create child process for instruction: {instruction.FileName}");
         }
 
-        var standardOutputString = await processResult.StandardOutput.ReadToEndAsync();
-        var standardErrorString = await processResult.StandardError.ReadToEndAsync();
+        var standardOutputString = await processResult.StandardOutput.ReadToEndAsync(cancellationToken);
+        var standardErrorString = await processResult.StandardError.ReadToEndAsync(cancellationToken);
         
         if (processResult.ExitCode != 0)
         {
@@ -67,11 +70,6 @@ public abstract class OSOperationProvider(ILogger<OSOperationProvider> logger)
             standardErrorString
         );
     }
-    
-    public abstract IAsyncEnumerable<string> ReadFileByLineAsync(
-        string path,
-        CancellationToken cancellationToken = default
-    );
     
     protected abstract Task<ProcessResult?> SpawnProcessAsync(
         ProcessStartInfo processStartInfo,

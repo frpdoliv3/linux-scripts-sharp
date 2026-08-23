@@ -10,26 +10,35 @@ public enum CreateUserResult
     UserCreationFailed
 }
 
-public class LinuxUserRepository(OSOperationProvider osOperationProvider, LinuxPaths linuxPaths)
+public class LinuxUserRepository(IOSOperationProvider osOperationProvider, LinuxPaths linuxPaths)
 {
     public async Task<IEnumerable<string>> GetUsers(CancellationToken cancellationToken = default) => 
         await osOperationProvider.ReadFileByLineAsync(linuxPaths.Passwd, cancellationToken)
             .Select(userRow => userRow.Split(":")[0])
             .ToListAsync(cancellationToken);
-
-    public async Task<CreateUserResult> CreateUser(string username, CancellationToken cancellationToken = default)
-    {
+    
+    public async Task<CreateUserResult> CreateSystemUser(
+        string username,
+        string homeBaseDir = "/var/lib",
+        CancellationToken cancellationToken = default
+    ) {
+        var normalizedHomeBaseDir = homeBaseDir switch
+        {
+            [.. var prefix, '/'] => prefix,
+            _ => homeBaseDir
+        };
+        
         var createUserInstruction = new Instruction("useradd")
             {
                 RequiresElevation = true
-            }
-            .AddArgument(Argument.CreateLongArgument("base-dir", "/var/lib"))
+            } 
+            .AddArgument(Argument.CreateLongArgument("base-dir", normalizedHomeBaseDir))
             .AddArgument(Argument.CreateLongArgument("create-home"))
             .AddArgument(Argument.CreateLongArgument("system"))
             .AddArgument(Argument.CreateLongArgument("shell", "/sbin/nologin"))
             .AddArgument(Argument.CreatePositionalArgument(username));
         
-        var instructionResult = await osOperationProvider.RunInstructionAsync(createUserInstruction);
+        var instructionResult = await osOperationProvider.RunInstructionAsync(createUserInstruction, cancellationToken);
         return instructionResult switch
         {
             InstructionSucceeded => CreateUserResult.UserCreated,
