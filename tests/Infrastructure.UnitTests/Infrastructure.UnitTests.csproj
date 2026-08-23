@@ -10,22 +10,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AwesomeAssertions" Version="9.5.0"/>
-        <PackageReference Include="coverlet.collector" Version="10.0.1">
+        <PackageReference Include="AwesomeAssertions" />
+        <PackageReference Include="coverlet.collector">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0"/>
-        <PackageReference Include="NSubstitute" Version="6.2.0" />
-        <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.17">
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="NSubstitute.Analyzers.CSharp">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
+        <PackageReference Include="xunit.runner.visualstudio">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="xunit.v3.mtp-off" Version="4.0.0"/>
+        <PackageReference Include="xunit.v3.mtp-off" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj"/>
+        <ProjectReference Include="$(SolutionRoot)\src\Infrastructure\Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

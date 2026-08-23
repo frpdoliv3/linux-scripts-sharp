@@ -10,11 +10,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Spectre.Console" Version="0.57.2" />
+      <PackageReference Include="Spectre.Console" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="$(SolutionRoot)\src\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

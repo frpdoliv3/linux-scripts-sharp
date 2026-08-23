@@ -125,6 +125,25 @@ public class LinuxUserRepositoryTests(ArchLinuxTestingImageFixture imageFixture)
         var createdUserHome = createdUserDetails.Stdout.Split(':')[5];
         createdUserHome.Should().Be($"/home/{testUserName}");
     }
+
+    [Fact]
+    public async Task MustDetectExistingUser()
+    {
+        var linuxPaths = new LinuxPaths();
+        
+        var linuxUserRepository = new LinuxUserRepository(
+            new ContainerOSOperationProvider(NullLogger<ContainerOSOperationProvider>.Instance, _container), 
+            linuxPaths
+        );
+
+        var userCreateResult = await linuxUserRepository
+            .CreateSystemUser(
+                ArchLinuxTestingImageFixture.TestUser,
+                cancellationToken: TestContext.Current.CancellationToken
+            );
+        
+        userCreateResult.Should().Be(CreateUserResult.UserAlreadyExists);
+    }
     
     public async ValueTask DisposeAsync()
         => await _container.DisposeAsync();

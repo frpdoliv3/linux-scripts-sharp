@@ -1,11 +1,10 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="Core\Core.csproj" />
-    <Project Path="Infrastructure\Infrastructure.csproj" />
-    <Project Path="UI/UI.csproj" />
+    <Project Path="src/Infrastructure\Infrastructure.csproj" />
+    <Project Path="src/UI/UI.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj" />
-    <Project Path="Infrastructure.UnitTests\Infrastructure.UnitTests.csproj" />
+    <Project Path="tests/Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj" />
+    <Project Path="tests/Infrastructure.UnitTests\Infrastructure.UnitTests.csproj" />
   </Folder>
 </Solution>
