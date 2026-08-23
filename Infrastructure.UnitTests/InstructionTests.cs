@@ -1,8 +1,8 @@
-using System.Diagnostics;
 using AwesomeAssertions;
-using Infrastructure.FileSystem.Models;
+using Infrastructure.Models;
+using Infrastructure.OSOperations;
 
-namespace Infrastructure.Tests;
+namespace Infrastructure.UnitTests;
 
 public class InstructionTests
 {

@@ -1,36 +1,40 @@
-using System.Diagnostics;
+using Infrastructure.Models;
+using Infrastructure.OSOperations;
 
-namespace Infrastructure.FileSystem;
+namespace Infrastructure;
 
-public class LinuxUserRepository(LinuxPaths linuxPaths)
+public enum CreateUserResult
 {
-    public async Task<IEnumerable<string>> GetUsers(CancellationToken cancellationToken = default)
-    {
-        return await File.ReadLinesAsync(linuxPaths.Passwd, cancellationToken)
+    UserCreated,
+    UserAlreadyExists,
+    UserCreationFailed
+}
+
+public class LinuxUserRepository(OSOperationProvider osOperationProvider, LinuxPaths linuxPaths)
+{
+    public async Task<IEnumerable<string>> GetUsers(CancellationToken cancellationToken = default) => 
+        await osOperationProvider.ReadFileByLineAsync(linuxPaths.Passwd, cancellationToken)
             .Select(userRow => userRow.Split(":")[0])
             .ToListAsync(cancellationToken);
-    }
 
-    public async Task CreateUser(string username, CancellationToken cancellationToken = default)
+    public async Task<CreateUserResult> CreateUser(string username, CancellationToken cancellationToken = default)
     {
-        var startInfo = new ProcessStartInfo
+        var createUserInstruction = new Instruction("useradd")
+            {
+                RequiresElevation = true
+            }
+            .AddArgument(Argument.CreateLongArgument("base-dir", "/var/lib"))
+            .AddArgument(Argument.CreateLongArgument("create-home"))
+            .AddArgument(Argument.CreateLongArgument("system"))
+            .AddArgument(Argument.CreateLongArgument("shell", "/sbin/nologin"))
+            .AddArgument(Argument.CreatePositionalArgument("qbittorrent"));
+        
+        var instructionResult = await osOperationProvider.RunInstructionAsync(createUserInstruction);
+        return instructionResult switch
         {
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            FileName = "sudo",
-            ArgumentList = { "useradd", "--base-dir", "/var/lib/", "--create-home", "--system", "--shell", "/sbin/nologin", "qbittorrent" }
+            InstructionSucceeded => CreateUserResult.UserCreated,
+            InstructionFailedToStart or InstructionExitedWithError => CreateUserResult.UserCreationFailed,
+            _ => throw new NotImplementedException()
         };
-        
-        var process = Process.Start(startInfo);
-        await process.WaitForExitAsync(cancellationToken);
-
-        var stderr = await process.StandardError.ReadToEndAsync(cancellationToken);
-        var stdout = await process.StandardOutput.ReadToEndAsync(cancellationToken);
-
-        Console.WriteLine("Standard Output: ");
-        Console.WriteLine(stdout);
-        
-        Console.WriteLine("\nStandard Error: ");
-        Console.WriteLine(stderr);
     }
 }
