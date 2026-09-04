@@ -1,13 +1,16 @@
+using Microsoft.Extensions.DependencyInjection;
+using Spectre.Console;
+
 namespace UI;
 
-public class Application
+public class Application(INavigator navigator)
 {
-    public async Task RunAsync(IScreen entryPoint)
+    public async Task RunAsync(ScreenType initScreenType)
     {
-        var curScreen = entryPoint;
-        while (curScreen != null)
+        navigator.Push(initScreenType);
+        while (navigator.CurrentScreen != null)
         {
-            curScreen = await entryPoint.ShowAsync();
+            await navigator.CurrentScreen.ShowAsync();
         }
     }
 }
