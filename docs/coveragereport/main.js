@@ -290,10 +290,26 @@ var assemblies = [
   {
     "name": "Infrastructure",
     "classes": [
-      { "name": "Infrastructure.FileSystem.LinuxPaths", "rp": "Infrastructure_LinuxPaths.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 5, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Infrastructure.FileSystem.LinuxUserRepository", "rp": "Infrastructure_LinuxUserRepository.html", "cl": 6, "ucl": 17, "cal": 23, "tl": 36, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Infrastructure.FileSystem.Models.Argument", "rp": "Infrastructure_Argument.html", "cl": 35, "ucl": 1, "cal": 36, "tl": 56, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Infrastructure.FileSystem.Models.Instruction", "rp": "Infrastructure_Instruction.html", "cl": 58, "ucl": 0, "cal": 58, "tl": 81, "cb": 10, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.LinuxPaths", "rp": "Infrastructure_LinuxPaths.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 5, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.LinuxUserRepository", "rp": "Infrastructure_LinuxUserRepository.html", "cl": 26, "ucl": 2, "cal": 28, "tl": 50, "cb": 10, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.Models.Argument", "rp": "Infrastructure_Argument.html", "cl": 35, "ucl": 1, "cal": 36, "tl": 56, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.Models.Instruction", "rp": "Infrastructure_Instruction.html", "cl": 45, "ucl": 0, "cal": 45, "tl": 62, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.OSOperations.InstructionExitedWithError", "rp": "Infrastructure_InstructionExitedWithError.html", "cl": 3, "ucl": 2, "cal": 5, "tl": 87, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.OSOperations.InstructionExtensions", "rp": "Infrastructure_InstructionExtensions.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 21, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.OSOperations.InstructionFailedToStart", "rp": "Infrastructure_InstructionFailedToStart.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 87, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.OSOperations.InstructionSucceeded", "rp": "Infrastructure_InstructionSucceeded.html", "cl": 2, "ucl": 2, "cal": 4, "tl": 87, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.OSOperations.LinuxOSOperationProvider", "rp": "Infrastructure_LinuxOSOperationProvider.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 31, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Infrastructure.OSOperations.OSOperationProvider", "rp": "Infrastructure_OSOperationProvider.html", "cl": 34, "ucl": 7, "cal": 41, "tl": 87, "cb": 6, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+    ]},
+  {
+    "name": "UI",
+    "classes": [
+      { "name": "Program", "rp": "UI_Program.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "UI.Application", "rp": "UI_Application.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 16, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "UI.Navigator", "rp": "UI_Navigator.html", "cl": 34, "ucl": 0, "cal": 34, "tl": 59, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "UI.Screens.HomeScreen", "rp": "UI_HomeScreen.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 51, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "UI.Screens.SetupTorrentScreen", "rp": "UI_SetupTorrentScreen.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "UI.ScreenType", "rp": "UI_ScreenType.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 15, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 

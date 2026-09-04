@@ -858,3 +858,5 @@ FodyWeavers.xsd
 riderModule.iml
 /_ReSharper.Caches/
 
+docs/coveragereport
+
