@@ -858,5 +858,6 @@ FodyWeavers.xsd
 riderModule.iml
 /_ReSharper.Caches/
 
+# Personal GitIgnore settings
 docs/coveragereport
-
+.env

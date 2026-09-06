@@ -22,9 +22,9 @@ body:
     id: description
     attributes:
       label: Description
-      description: Describe what needs to be implemented or changed.
+      description: What capability or behavior should the system provide?
       placeholder: |
-        Describe the desired behavior or capability.
+        Describe the feature or behavior from the user's or system's perspective.
     validations:
       required: true
 
@@ -32,7 +32,9 @@ body:
     id: motivation
     attributes:
       label: Motivation
-      description: Why is this change needed? What problem does it solve?
+      description: Why is this feature or requirement needed? What user, business, or technical need does it address?
+      placeholder: |
+        Explain the reason for introducing this behavior or capability.
     validations:
       required: true
 
@@ -40,11 +42,12 @@ body:
     id: requirements
     attributes:
       label: Requirements
-      description: List the requirements that the implementation must satisfy.
+      description: What rules, constraints, or specific conditions must this feature satisfy?
       placeholder: |
-        - The application must...
-        - The user must be able to...
-        - The system should...
+        - The user must...
+        - The system must...
+        - The value must...
+        - If ..., then ...
     validations:
       required: false
 
