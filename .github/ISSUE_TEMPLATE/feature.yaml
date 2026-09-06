@@ -1,0 +1,77 @@
+name: Feature / Requirement
+description: Describe a new feature, requirement, or technical improvement
+labels:
+  - enhancement
+
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: What kind of change is this?
+      options:
+        - Business requirement
+        - Technical feature
+        - Technical improvement
+        - Refactoring / maintenance
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what needs to be implemented or changed.
+      placeholder: |
+        Describe the desired behavior or capability.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this change needed? What problem does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: List the requirements that the implementation must satisfy.
+      placeholder: |
+        - The application must...
+        - The user must be able to...
+        - The system should...
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: What must be true for this issue to be considered complete?
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Technical notes
+      description: Optional implementation details, architectural considerations, or relevant components.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other relevant information, references, examples, or related issues.
+    validations:
+      required: false

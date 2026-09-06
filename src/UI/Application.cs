@@ -1,6 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Spectre.Console;
-
 namespace UI;
 
 public class Application(INavigator navigator)
