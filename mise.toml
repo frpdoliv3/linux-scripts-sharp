@@ -1,2 +1,3 @@
 [tools]
 dotnet = "10"
+"dotnet:dotnet-reportgenerator-globaltool" = "latest"
